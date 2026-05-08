@@ -9,10 +9,30 @@ import threading
 from typing import Callable, Optional
 
 from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 from htmldocx import HtmlToDocx
 
 from lib.md_parser import read_markdown
 from lib.themes_docx import DOCX_THEMES
+
+
+def _add_page_number(run) -> None:
+    """Inject Word XML fields into a run to display the current page number."""
+    fldChar1 = OxmlElement('w:fldChar')
+    fldChar1.set(qn('w:fldCharType'), 'begin')
+    
+    instrText = OxmlElement('w:instrText')
+    instrText.set(qn('xml:space'), 'preserve')
+    instrText.text = "PAGE"
+    
+    fldChar2 = OxmlElement('w:fldChar')
+    fldChar2.set(qn('w:fldCharType'), 'end')
+    
+    run._r.append(fldChar1)
+    run._r.append(instrText)
+    run._r.append(fldChar2)
 
 
 def _apply_table_borders(doc: Document) -> None:
@@ -85,6 +105,14 @@ def generate_single(html_content: str, metadata: dict, theme_name: str, output_p
 
     # Ensure all tables have visible borders
     _apply_table_borders(doc)
+
+    # Add page numbers to footer
+    section = doc.sections[0]
+    footer = section.footer
+    p = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = p.add_run()
+    _add_page_number(run)
 
     doc.save(output_path)
     print(f"  [DOCX] Saved: {output_path}")

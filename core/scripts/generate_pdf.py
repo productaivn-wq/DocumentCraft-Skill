@@ -56,6 +56,9 @@ async def _render_pdf(html_content: str, css_content: str, output_path: str) -> 
             path=output_path,
             format="A4",
             print_background=True,
+            display_header_footer=True,
+            header_template="<span></span>",
+            footer_template='<div style="font-size: 10pt; width: 100%; text-align: center; color: gray;"><span class="pageNumber"></span></div>',
             margin={"top": "20mm", "bottom": "20mm", "left": "20mm", "right": "20mm"},
         )
         await browser.close()

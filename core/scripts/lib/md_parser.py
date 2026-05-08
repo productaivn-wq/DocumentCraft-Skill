@@ -18,7 +18,7 @@ def read_markdown(file_path: str) -> Tuple[str, dict]:
     with open(file_path, "r", encoding="utf-8") as f:
         md_text = f.read()
     
-    md = markdown.Markdown(extensions=["tables", "fenced_code", "meta"])
+    md = markdown.Markdown(extensions=["tables", "fenced_code", "meta", "toc", "codehilite"])
     html = md.convert(md_text)
     
     # python-markdown meta extension returns dict with list values
@@ -28,5 +28,11 @@ def read_markdown(file_path: str) -> Tuple[str, dict]:
     if hasattr(md, "Meta"):
         for k, v in md.Meta.items():
             meta[k] = v[0] if len(v) == 1 else v
+            
+    # Inject Table of Contents if requested
+    toc_flag = str(meta.get("toc", "")).lower()
+    if toc_flag in ("true", "yes", "1"):
+        if hasattr(md, "toc") and "<div" in md.toc:
+            html = f'<div style="page-break-after: always;"><h2 style="border-bottom: 2px solid #ccc; padding-bottom: 10px;">Table of Contents</h2>{md.toc}</div>\n' + html
             
     return html, meta
