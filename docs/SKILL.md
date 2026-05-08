@@ -1,9 +1,9 @@
 ---
 name: DocumentCraft
 description: "Markdown-to-PDF/DOCX rendering engine plus a generic, project-agnostic playbook for shipping operator-grade structured documents. Wraps python-docx and Playwright; teaches narrative arcs, MECE axes, citation systems, page-break engineering, companion-file split, brand rebrand, translation, and review loops."
-version: 1.2.0
+version: 1.3.0
 status: active
-updated: 2026-05-07
+updated: 2026-05-08
 ---
 
 # DocumentCraft
@@ -30,6 +30,12 @@ updated: 2026-05-07
 |---|---|---|
 | **PDF Generation** | ✅ Active | Markdown → HTML → PDF via headless Chromium |
 | **DOCX Generation** | ✅ Active | Markdown → HTML → DOCX via python-docx + htmldocx |
+| **YAML Frontmatter**| ✅ Active | Parses meta tags for cover pages & document settings |
+| **Auto Cover Page** | ✅ Active | Synthesizes cover page if `title` is in frontmatter |
+| **Table of Contents**| ✅ Active | Auto-generates TOC if `toc: true` in frontmatter |
+| **Pagination**      | ✅ Active | Bottom margin page numbering for PDF/DOCX |
+| **Syntax Highlight**| ✅ Active | Code block syntax highlighting via codehilite |
+| **Custom Brand Color**| ✅ Active | Dynamic HEX override via `--brand-color` |
 | **Multi-Theme** | ✅ Active | 3 built-in themes per format |
 | **Parallel Rendering** | ✅ Active | Concurrent multi-version output |
 | **Table Borders** | ✅ Active | Automatic 'Table Grid' style for DOCX |
@@ -42,8 +48,10 @@ updated: 2026-05-07
 
 ### Usage
 
+### Usage
+
 ```bash
-python core/scripts/craft.py pdf  "report.md" --theme darkmode --output-dir ./outputs
+python core/scripts/craft.py pdf  "report.md" --theme darkmode --output-dir ./outputs --brand-color "#FF5733"
 python core/scripts/craft.py docx "report.md" --theme vibrant
 python core/scripts/craft.py all  "report.md"           # all themes both formats, parallel
 ```
@@ -469,10 +477,8 @@ Final outputs (PDF/DOCX) and the `References_Master.csv` are designed to be inge
 | Idea | Why | How |
 |---|---|---|
 | `[n]` resolver pass | Auto-link inline citations to the references table | Markdown extension that rewrites `[n]` → numbered hyperlinks; build References table from a YAML front-matter source |
-| TOC auto-generator | Stop hand-maintaining the contents table | Walk H1/H2 headings, emit a styled table per the playbook |
 | Companion orchestrator | Build main + N companions in one shot | New `craft.py bundle` command taking a manifest of `.md` + `.xlsx` files |
 | Page-break theme defaults | Apply §2.7 rules globally | Update `themes_docx.py` Word styles to include `keep_with_next` + `page_break_before` on Heading 1; emit `cant_split` on every table row; same for `themes_pdf.py` CSS |
-| Cover-page template | Stop re-implementing the 3-line cover | Add a `--cover brand="..." subtitle="..." purpose="..."` CLI option |
 | Pre-publish lint | Catch playbook violations before render | `craft.py lint report.md` runs §2.15 checklist against the source markdown |
 | Translation pipeline | Same source, multiple language outputs | `craft.py translate report.md --to vi --keep-acronyms KPI,ARPU,…` |
 | Coherence-review preset | Bake §2.13 audit into a reusable script | `craft.py review report.pdf --master-refs References_Master.csv` |
@@ -482,6 +488,7 @@ Final outputs (PDF/DOCX) and the `References_Master.csv` are designed to be inge
 
 ## Changelog
 
+- **1.3.0** (2026-05-08) — Dynamic Engine upgrade! Added YAML frontmatter parsing, automatic Cover Page generation (via `title`/`subtitle`/`brand`), dynamic `--brand-color` CLI overrides, auto-generated Table of Contents (`toc: true`), global pagination/page numbers, and syntax highlighting for code blocks.
 - **1.2.0** (2026-05-07) — Refactored the Playbook to be **project-agnostic**. Every pattern now uses `{slot}` syntax with optional `> Example:` callouts. Added Part 3 (slot fill-in YAML template) so any new project can be wired up in one paste. Original engagement-specific examples preserved as illustrations only.
 - **1.1.0** (2026-05-07) — Added Part 2 (Playbook): narrative arc, MECE axes, top-N + companion pattern, inline citation system, cover dedup, bullet-vs-prose rule, page/line-break engineering, pre-launch numbering, versioning/archive, brand rebrand, translation workflow, iterative review loop, coherence-review agent, parallel agent pattern, pre-publish checklist, roadmap.
 - **1.0.0** — Initial engine release (PDF + DOCX generation, 3 themes per format, parallel rendering).
