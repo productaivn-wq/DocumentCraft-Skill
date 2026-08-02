@@ -1,1 +1,1 @@
-# DocumentCraft library modules
+# DocumentCraft lib module

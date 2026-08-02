@@ -1,4 +1,0 @@
-markdown
-python-docx
-htmldocx
-playwright
