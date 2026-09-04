@@ -1,6 +1,6 @@
-# 32_DOCUMENTCRAFT-PUBLIC/
+# core/
 
-> Contents of `32_DOCUMENTCRAFT-PUBLIC/`
+> Contents of `core/`
 
 _Last updated: 2026-05-22_
 
@@ -14,13 +14,7 @@ _Last updated: 2026-05-22_
 
 | Name | Type | Usage | Content Summary |
 |---|---|---|---|
-| [DIR] `batch_outputs` | Folder | — | Contents of `batch_outputs/` (1 files) |
-| [DIR] `core` | Folder | — | Contents of `core/` (11 files) |
-| [DIR] `docs` | Folder | — | Project documentation and specifications (51 files) |
-| [DIR] `tests` | Folder | — | Test files and fixtures (18 files) |
-| [DIR] `.gitignore` | File | — | 0.1 KB |
-| [DOC] `requirements.txt` | TXT | — | 0.0 KB |
-| [DOC] `test_dynamic.md` | MD | — | 0.4 KB |
+| [DIR] `scripts` | Folder | — | Contents of `scripts/` (10 files) |
 
 ## Traceability Matrix
 

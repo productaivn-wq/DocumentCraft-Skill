@@ -1,8 +1,8 @@
-# 32_DOCUMENTCRAFT-PUBLIC/
+# scripts/
 
-> Contents of `32_DOCUMENTCRAFT-PUBLIC/`
+> Contents of `scripts/`
 
-_Last updated: 2026-05-22_
+_Last updated: 2026-05-25_
 
 ## Project Identity
 
@@ -14,13 +14,11 @@ _Last updated: 2026-05-22_
 
 | Name | Type | Usage | Content Summary |
 |---|---|---|---|
-| [DIR] `batch_outputs` | Folder | — | Contents of `batch_outputs/` (1 files) |
-| [DIR] `core` | Folder | — | Contents of `core/` (11 files) |
-| [DIR] `docs` | Folder | — | Project documentation and specifications (51 files) |
-| [DIR] `tests` | Folder | — | Test files and fixtures (18 files) |
-| [DIR] `.gitignore` | File | — | 0.1 KB |
-| [DOC] `requirements.txt` | TXT | — | 0.0 KB |
-| [DOC] `test_dynamic.md` | MD | — | 0.4 KB |
+| [DIR] `lib` | Folder | — | Contents of `lib/` (5 files) |
+| [SRC] `batch_compile.py` | PY | — | 3.3 KB |
+| [SRC] `craft.py` | PY | — | 4.9 KB |
+| [SRC] `generate_docx.py` | PY | — | 5.4 KB |
+| [SRC] `generate_pdf.py` | PY | — | 5.1 KB |
 
 ## Traceability Matrix
 
