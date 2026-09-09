@@ -2,3 +2,20 @@ __pycache__/
 outputs/
 batch_outputs/
 test_dynamic.md
+
+# GitSyncManager Auto-Exclusions
+tests/
+docs/UC-*
+docs/traceability_matrix.md
+docs/function_rules.md
+docs/function_list.md
+docs/checkpoints.md
+docs/functional_requirements.md
+docs/okf/
+docs/utop_state.json
+results/
+scratchpads/
+SKILL.md
+node_modules/
+*node_modules/*
+**/node_modules/*
